@@ -1,0 +1,155 @@
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/space-grotesk";
+@import "@fontsource-variable/newsreader";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * THREADLAB design tokens
+ * Layered token system adapted from the Open Design "premium" reference:
+ * identity tokens (brand colors), slot tokens (surfaces), structure tokens
+ * (type scale, spacing, radii, elevation, motion) with light + dark themes.
+ */
+
+@layer base {
+  :root {
+    /* Identity — brand palette */
+    --background: 210 25% 98%;          /* #F8F9FB */
+    --workspace: 210 22% 94%;           /* #F1F3F6 */
+    --surface: 0 0% 100%;               /* #FFFFFF */
+    --surface-2: 210 20% 96%;           /* #F4F6F9 */
+    --foreground: 220 14% 9%;           /* #17191D */
+    --muted: 210 12% 46%;               /* #777E87 */
+    --muted-fg: 210 12% 46%;
+    --border: 210 14% 89%;              /* #E5E8ED */
+    --input: 210 14% 88%;
+    --ring: 233 84% 61%;
+
+    /* Accent — single sophisticated signal color, used consistently */
+    --accent: 246 100% 64%;              /* #635BFF */
+    --accent-fg: 0 0% 100%;
+    --accent-hover: 246 100% 58%;
+    --accent-soft: 246 100% 96%;
+
+    --secondary: 210 14% 94%;
+    --secondary-fg: 220 14% 14%;
+
+    --success: 152 58% 39%;
+    --warning: 35 92% 48%;
+    --danger: 0 72% 56%;
+    --danger-fg: 0 0% 100%;
+
+    /* Structure */
+    --radius: 12px;
+
+    --shadow-flat: none;
+    --shadow-ring: 0 0 0 1px hsl(var(--border));
+    --shadow-raised: 0 24px 60px rgba(23, 25, 29, 0.1);
+
+    --font-sans: "Inter Variable", Inter, system-ui, sans-serif;
+    --font-display: "Space Grotesk Variable", "Space Grotesk", system-ui, sans-serif;
+    --font-serif: "Newsreader Variable", Newsreader, Georgia, serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  .dark {
+    --background: 222 16% 6%;            /* #0F1115 */
+    --workspace: 222 14% 9%;            /* #161922 */
+    --surface: 222 12% 11%;             /* #1B1F28 */
+    --surface-2: 222 10% 15%;           /* #222733 */
+    --foreground: 210 20% 96%;          /* #F2F4F8 */
+    --muted: 215 12% 64%;               /* #9AA3B2 */
+    --muted-fg: 215 12% 64%;
+    --border: 222 10% 20%;              /* #2A2F3A */
+    --input: 222 10% 18%;
+    --ring: 246 100% 72%;
+
+    --accent: 246 100% 70%;              /* #8B85FF */
+    --accent-fg: 222 16% 6%;
+    --accent-hover: 246 100% 76%;
+    --accent-soft: 246 40% 16%;
+
+    --secondary: 222 10% 16%;
+    --secondary-fg: 210 20% 92%;
+
+    --success: 152 50% 50%;
+    --warning: 35 92% 58%;
+    --danger: 0 72% 64%;
+    --danger-fg: 0 0% 100%;
+
+    --shadow-raised: 0 24px 60px rgba(0, 0, 0, 0.45);
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: hsl(var(--accent) / 0.22);
+  }
+}
+
+@layer components {
+  /* Design-tool surfaces */
+  .studio-panel {
+    background-color: hsl(var(--surface));
+    border-color: hsl(var(--border));
+  }
+  .workspace-surface {
+    background-color: hsl(var(--workspace));
+  }
+
+  /* Section rhythm */
+  .section-pad {
+    padding-block: clamp(48px, 8vw, 112px);
+  }
+
+  /* Subtle scrollbars for panels */
+  .thin-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+  .thin-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .thin-scroll::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--border));
+    border-radius: 9999px;
+  }
+  .thin-scroll::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  /* Canvas checker for transparent artwork previews */
+  .checker-bg {
+    background-image:
+      linear-gradient(45deg, hsl(var(--muted) / 0.12) 25%, transparent 25%),
+      linear-gradient(-45deg, hsl(var(--muted) / 0.12) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, hsl(var(--muted) / 0.12) 75%),
+      linear-gradient(-45deg, transparent 75%, hsl(var(--muted) / 0.12) 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+  }
+}
+
+/* R3F canvas should never be affected by theme background tokens */
+canvas {
+  display: block;
+  touch-action: none;
+}
